@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+void copyString(char *source, char *destination) {
+    int i = 0;
+    // Copy each character from source to destination
+    while (source[i] != '\0') {
+        destination[i] = source[i];
+        i++;
+    }
+    destination[i] = '\0';  // Null-terminate the destination string
+}
+
+int main() {
+    char source[100], destination[100];
+
+    // Input the source string
+    printf("Enter a string: ");
+    gets(source);  // Use `fgets` in modern C programs to avoid buffer overflow
+
+    // Copy the string
+    copyString(source, destination);
+
+    // Output the result
+    printf("Source String: %s\n", source);
+    printf("Copied String: %s\n", destination);
+
+    return 0;
+}
