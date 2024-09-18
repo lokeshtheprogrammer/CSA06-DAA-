@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+typedef struct {
+    int weight;
+    int value;
+    double ratio;
+} Item;
+
+// Function to compare items based on their value-to-weight ratio
+int compare(const void *a, const void *b) {
+    double r1 = ((Item *)a)->ratio;
+    double r2 = ((Item *)b)->ratio;
+    return (r1 > r2) ? -1 : (r1 < r2);
+}
+
+double knapsack(Item items[], int n, int capacity) {
+    qsort(items, n, sizeof(Item), compare);
+
+    double totalValue = 0.0;
+    for (int i = 0; i < n; i++) {
+        if (capacity == 0) break;
+
+        int takeWeight = (items[i].weight <= capacity) ? items[i].weight : capacity;
+        totalValue += takeWeight * items[i].ratio;
+        capacity -= takeWeight;
+    }
+
+    return totalValue;
+}
+
+int main() {
+    int n, capacity;
+
+    // Input number of items and knapsack capacity
+    printf("Enter number of items: ");
+    scanf("%d", &n);
+
+    Item items[n];
+    
+    printf("Enter capacity of knapsack: ");
+    scanf("%d", &capacity);
+
+    // Input items' weights and values
+    printf("Enter weight and value for each item:\n");
+    for (int i = 0; i < n; i++) {
+        printf("Item %d weight: ", i + 1);
+        scanf("%d", &items[i].weight);
+        printf("Item %d value: ", i + 1);
+        scanf("%d", &items[i].value);
+        items[i].ratio = (double)items[i].value / items[i].weight;
+    }
+
+    // Calculate maximum value of knapsack
+    double maxValue = knapsack(items, n, capacity);
+
+    // Output the result
+    printf("Maximum value in knapsack: %.2f\n", maxValue);
+
+    return 0;
+}
