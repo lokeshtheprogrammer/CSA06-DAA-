@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+// Function to calculate binomial coefficient using dynamic programming
+int binomialCoefficient(int n, int k) {
+    // Create a 2D table to store previously calculated values
+    int C[n+1][k+1];
+    int i, j;
+    
+    // Fill the table in a bottom-up manner
+    for (i = 0; i <= n; i++) {
+        for (j = 0; j <= k && j <= i; j++) {
+            // Base case: C(n, 0) = C(n, n) = 1
+            if (j == 0 || j == i) {
+                C[i][j] = 1;
+            }
+            else {
+                // Use the recursive formula: C(n, k) = C(n-1, k-1) + C(n-1, k)
+                C[i][j] = C[i-1][j-1] + C[i-1][j];
+            }
+        }
+    }
+    
+    // Return the final result: C(n, k)
+    return C[n][k];
+}
+
+int main() {
+    int n, k;
+    
+    // Input n and k from the user
+    printf("Enter the value of n: ");
+    scanf("%d", &n);
+    printf("Enter the value of k: ");
+    scanf("%d", &k);
+    
+    // Calculate binomial coefficient
+    int result = binomialCoefficient(n, k);
+    
+    // Output the result
+    printf("Binomial Coefficient C(%d, %d) = %d\n", n, k, result);
+    
+    return 0;
+}
