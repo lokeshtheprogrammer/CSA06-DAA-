@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+int subset[100], n, sum, target;
+
+void sumOfSubsets(int s, int k, int r) {
+    subset[k] = 1;
+    if (s + subset[k] == target) {
+        printf("{ ");
+        for (int i = 0; i <= k; i++) {
+            if (subset[i])
+                printf("%d ", subset[i]);
+        }
+        printf("}\n");
+    } else if (s + subset[k] + subset[k + 1] <= target)
+        sumOfSubsets(s + subset[k], k + 1, r - subset[k]);
+
+    if ((s + r - subset[k] >= target) && (s + subset[k + 1] <= target)) {
+        subset[k] = 0;
+        sumOfSubsets(s, k + 1, r - subset[k]);
+    }
+}
+
+int main() {
+    int i, sum = 0;
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+    int arr[n];
+    printf("Enter elements: ");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+        sum += arr[i];
+    }
+
+    printf("Enter target sum: ");
+    scanf("%d", &target);
+
+    sumOfSubsets(0, 0, sum);
+    return 0;
+}
