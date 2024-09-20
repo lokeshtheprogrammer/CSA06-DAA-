@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+void insertNumber(int arr[], int *size, int num, int pos) {
+    for (int i = *size; i > pos; i--)
+        arr[i] = arr[i - 1];
+    arr[pos] = num;
+    (*size)++;
+}
+
+int main() {
+    int arr[100], size, num, pos;
+
+    printf("Enter size of list: ");
+    scanf("%d", &size);
+
+    printf("Enter elements of list:\n");
+    for (int i = 0; i < size; i++)
+        scanf("%d", &arr[i]);
+
+    printf("Enter number to insert: ");
+    scanf("%d", &num);
+    printf("Enter position to insert at (0-indexed): ");
+    scanf("%d", &pos);
+
+    insertNumber(arr, &size, num, pos);
+
+    printf("List after insertion:\n");
+    for (int i = 0; i < size; i++)
+        printf("%d ", arr[i]);
+
+    return 0;
+}
