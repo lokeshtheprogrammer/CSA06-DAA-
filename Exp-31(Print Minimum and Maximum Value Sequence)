@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+void findMinMaxSequence(int arr[], int size) {
+    int min = arr[0], max = arr[0];
+
+    // Find minimum and maximum values in the list
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < min)
+            min = arr[i];
+        if (arr[i] > max)
+            max = arr[i];
+    }
+
+    // Print minimum and maximum sequences
+    printf("Minimum Value Sequence: ");
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == min)
+            printf("%d ", arr[i]);
+    }
+
+    printf("\nMaximum Value Sequence: ");
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == max)
+            printf("%d ", arr[i]);
+    }
+
+    printf("\n");
+}
+
+int main() {
+    int size;
+
+    // Input the size of the list
+    printf("Enter the size of the list: ");
+    scanf("%d", &size);
+
+    int arr[size];
+
+    // Input the elements of the list
+    printf("Enter the elements of the list:\n");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Find and print the min and max sequences
+    findMinMaxSequence(arr, size);
+
+    return 0;
+}
